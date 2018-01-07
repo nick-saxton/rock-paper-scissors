@@ -12,39 +12,83 @@
     }
 
     function playRound(playerSelection, computerSelection) {
-      let result;
+      let result = {};
 
       if (playerSelection.toLowerCase() == computerSelection) {
-        result = "Tie!";
+        result.text = "Tie!";
       } else {
         switch(playerSelection.toLowerCase()) {
           case "rock":
             if (computerSelection == "scissors") {
-              result = "You win! Rock beats scissors.";
+              result.text = "You win! Rock beats scissors.";
+              result.winner = 1;
             } else {
-              result = "You lose! Paper beats rock.";
+              result.text = "You lose! Paper beats rock.";
+              result.winner = 2;
             }
             break;
           case "paper":
             if (computerSelection == "scissors") {
-              result = "You lose! Scissors beat paper.";
+              result.text = "You lose! Scissors beat paper.";
+              result.winner = 2;
             } else {
-              result = "You win! Paper beats rock.";
+              result.text = "You win! Paper beats rock.";
+              result.winner = 1;
             }
               break;
           case "scissors":
             if (computerSelection == "paper") {
-              result = "You win! Scissors beats paper.";
+              result.text = "You win! Scissors beats paper.";
+              result.winner = 1;
             } else {
-              result = "You lose! Rock beats scissors.";
+              result.text = "You lose! Rock beats scissors.";
+              result.winner = 2;
             }
             break;
           default:
-            result = "Invalid choice!";
+            break;
         }
       }
 
       return result;
+    }
+
+    function displayFinalResult(playerPoints, computerPoints) {
+      if (computerPoints > playerPoints) {
+        console.log("Sorry, you lost the game...")
+      } else if (playerPoints > computerPoints) {
+        console.log("Congrats! You won!");
+      } else {
+        console.log("You and the computer tied.");
+      }
+    }
+
+    function game() {
+      let playerPoints = 0,
+          computerPoints = 0;
+
+      for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("Rock, paper, or scissors?");
+        let computerSelection = computerPlay();
+
+        let result = playRound(playerSelection, computerSelection);
+        if (result.text) {
+          console.log(result.text);
+        } else {
+          alert("Invalid selection. Please enter either rock, paper, or scissors.");
+          i--;
+        }
+
+        if (result.winner) {
+          if (result.winner == 1) {
+            playerPoints++;
+          } else {
+            computerPoints++;
+          }
+        }
+
+        displayFinalResult(playerPoints, computerPoints);
+      }
     }
   </script>
 </body>

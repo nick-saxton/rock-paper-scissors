@@ -2,94 +2,36 @@
 <html>
 <head>
   <title>Rock, Paper, Scissors</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-  <script>
-    const options = ["rock", "paper", "scissors"];
-
-    function computerPlay() {
-      return options[Math.floor(Math.random() * 3)];
-    }
-
-    function playRound(playerSelection, computerSelection) {
-      let result = {};
-
-      if (playerSelection.toLowerCase() == computerSelection) {
-        result.text = "Tie!";
-      } else {
-        switch(playerSelection.toLowerCase()) {
-          case "rock":
-            if (computerSelection == "scissors") {
-              result.text = "You win! Rock beats scissors.";
-              result.winner = 1;
-            } else {
-              result.text = "You lose! Paper beats rock.";
-              result.winner = 2;
-            }
-            break;
-          case "paper":
-            if (computerSelection == "scissors") {
-              result.text = "You lose! Scissors beat paper.";
-              result.winner = 2;
-            } else {
-              result.text = "You win! Paper beats rock.";
-              result.winner = 1;
-            }
-              break;
-          case "scissors":
-            if (computerSelection == "paper") {
-              result.text = "You win! Scissors beats paper.";
-              result.winner = 1;
-            } else {
-              result.text = "You lose! Rock beats scissors.";
-              result.winner = 2;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-
-      return result;
-    }
-
-    function displayFinalResult(playerPoints, computerPoints) {
-      if (computerPoints > playerPoints) {
-        console.log("Sorry, you lost the game...")
-      } else if (playerPoints > computerPoints) {
-        console.log("Congrats! You won!");
-      } else {
-        console.log("You and the computer tied.");
-      }
-    }
-
-    function game() {
-      let playerPoints = 0,
-          computerPoints = 0;
-
-      for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Rock, paper, or scissors?");
-        let computerSelection = computerPlay();
-
-        let result = playRound(playerSelection, computerSelection);
-        if (result.text) {
-          console.log(result.text);
-        } else {
-          alert("Invalid selection. Please enter either rock, paper, or scissors.");
-          i--;
-        }
-
-        if (result.winner) {
-          if (result.winner == 1) {
-            playerPoints++;
-          } else {
-            computerPoints++;
-          }
-        }
-
-        displayFinalResult(playerPoints, computerPoints);
-      }
-    }
-  </script>
+  <div class="score">
+    <h1>Score</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            You
+          </th>
+          <th>
+            Computer
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="playerScore">0</td>
+          <td id="computerScore">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="result"></div>
+  <div class="options">
+    <button type="button" id="rock">Rock</button>
+    <button type="button"  id="paper">Paper</button>
+    <button type="button"  id="scissors">Scissors</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
